@@ -237,7 +237,8 @@ struct
     (if x < Rep.zero then "-" else "") ^
     if is_nan x then
       "nan:0x" ^ Rep.to_hex_string (Rep.logand (abs x) (Rep.lognot bare_nan))
+    else if is_inf x then
+      "inf"
     else
-      (* TODO: use sprintf "%h" once we have upgraded to OCaml 4.03 *)
-      string_of_float (to_float (abs x))
+      Printf.sprintf "%h" (to_float (abs x))
 end
